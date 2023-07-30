@@ -1,0 +1,21 @@
+{
+  "name": "Kite Auto Limit Order",
+  "description": "Kite Auto Limit Order",
+  "version": "0.001",
+  "author": "Soance Innovations LLP",
+  "manifest_version": 3,
+  "host_permissions": ["<all_urls>"],
+  "content_scripts": [
+    {
+      "matches": ["https://kite.zerodha.com/*","https://www.paytmmoney.com/*"],
+      "exclude_globs": ["*static*"],
+      "run_at": "document_end",
+      "all_frames": false,
+      "js": ["content.js","paytm.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": ["activeTab", "storage", "notifications"]
+}
