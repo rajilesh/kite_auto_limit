@@ -40,23 +40,39 @@ setInterval(()=>{
   let toggle = more_options.querySelector('.limit_toggler input');
   let submit_value = form.querySelector('button.submit');
   
-   if(document.querySelector('[value="MARKET"]').addEventListener('click',function(){
+   if(document.querySelector('[value="MARKET"]').addEventListener('click',function(e){
+     if (e.metaKey) {
+      is_market_clicked = false;
+      toggle.value = '';
+     }else{
       is_market_clicked = true;
+  toggle.value = ka_limitVal;
+     }
     }));
 
-   if(document.querySelector('[value="LIMIT"]').addEventListener('click',function(){
+   if(document.querySelector('[value="LIMIT"]').addEventListener('click',function(e){
       is_market_clicked = true;
   toggle.value = ka_limitVal;
     }));
 
-   if(document.querySelector('input[value="SL"]').addEventListener('click',function(){
+   if(document.querySelector('input[value="SL"]').addEventListener('click',function(e){
+       if (e.metaKey) {
+      is_market_clicked = true;
+  toggle.value = ka_limitVal;
+     }else{
       is_market_clicked = false;
       toggle.value = '';
+     }
     }));
 
-   if(document.querySelector('input[value="SL-M"]').addEventListener('click',function(){
+   if(document.querySelector('input[value="SL-M"]').addEventListener('click',function(e){
+        if (e.metaKey) {
+      is_market_clicked = true;
+  toggle.value = ka_limitVal;
+     }else{
       is_market_clicked = false;
       toggle.value = '';
+     }
     }));
   
   
