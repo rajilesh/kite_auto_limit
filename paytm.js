@@ -1,4 +1,4 @@
-var ka_limitVal = 5;
+var ka_limitVal = 1;
 setInterval(()=>{
   if(!document.querySelector('#place-order')){return false;}
 

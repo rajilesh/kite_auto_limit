@@ -1,4 +1,7 @@
-var ka_limitVal = 5;
+var ka_limitVal = 1;
+var is_market_clicked = false;
+
+   
 setInterval(()=>{
   if(!document.querySelector('form.order-window')){return false;}
 
@@ -18,12 +21,14 @@ setInterval(()=>{
     position: absolute;
     top: 217px;
     left: 50%;
-    margin: -58px 0 0 0;
+    // margin: -58px 0 0 0;
+    margin: 0px 0 0 -16px;
     z-index: 1;
     width: 50px;
     font-size: 16px;
     border: 1px solid #e3e0e0;
     padding: 4px;
+    z-index: 99;
     " type="number" stateon="SELL" checked stateoff="BUY" label="" class="su-switch" value="${ka_limitVal}">
      <label for="limit_toggler" class="su-switch-control"></label>`;
     more_options.appendChild(div);
@@ -35,14 +40,32 @@ setInterval(()=>{
   let toggle = more_options.querySelector('.limit_toggler input');
   let submit_value = form.querySelector('button.submit');
   
-  
-  ka_limitVal = toggle.value;
+   if(document.querySelector('[value="MARKET"]').addEventListener('click',function(){
+      is_market_clicked = true;
+    }));
+
+   if(document.querySelector('[value="LIMIT"]').addEventListener('click',function(){
+      is_market_clicked = true;
+  toggle.value = ka_limitVal;
+    }));
+
+   if(document.querySelector('input[value="SL"]').addEventListener('click',function(){
+      is_market_clicked = false;
+      toggle.value = '';
+    }));
+
+   if(document.querySelector('input[value="SL-M"]').addEventListener('click',function(){
+      is_market_clicked = false;
+      toggle.value = '';
+    }));
   
   
   if(toggle.value !=null && toggle.value !=0){
 
+  
+  ka_limitVal = toggle.value;
 
-  if(document.querySelector('.order-type .su-radio-wrap:nth-child(2) input').checked==false){
+  if(document.querySelector('.order-type .su-radio-wrap:nth-child(2) input').checked==false && is_market_clicked){
     document.querySelector('.order-type .su-radio-wrap:nth-child(2) input').click();
   }
     
@@ -59,7 +82,7 @@ setInterval(()=>{
     if(isNaN(new_ltp)==false){
       new_ltp = Math.round(new_ltp);
     let price = form.querySelector('.price input').value = new_ltp;
-    // let trigger = form.querySelector('.trigger input').value = new_ltp;
+    let trigger = form.querySelector('.trigger input').value = new_ltp;
   }
   }
   
