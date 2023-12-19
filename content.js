@@ -1,5 +1,7 @@
 var ka_limitVal = 1;
 var is_market_clicked = false;
+let toggle = null;
+let ltp = null;
 
    
 setInterval(()=>{
@@ -37,9 +39,11 @@ setInterval(()=>{
     
   }
 
-  let toggle = more_options.querySelector('.limit_toggler input');
+  toggle = more_options.querySelector('.limit_toggler input');
   let submit_value = form.querySelector('button.submit');
   
+  ltp = Math.round(form.querySelector('.last-price').innerText.replace(/[₹,]/,''));
+
    if(document.querySelector('[value="MARKET"]').addEventListener('click',function(e){
      if (e.metaKey) {
       is_market_clicked = false;
@@ -51,14 +55,26 @@ setInterval(()=>{
     }));
 
    if(document.querySelector('[value="LIMIT"]').addEventListener('click',function(e){
-      is_market_clicked = true;
-  toggle.value = ka_limitVal;
+ 
+
+  if (e.metaKey) {
+    is_market_clicked = false;
+    toggle.value = '';
+   }else{
+    is_market_clicked = true;
+toggle.value = ka_limitVal;
+   }
     }));
 
    if(document.querySelector('input[value="SL"]').addEventListener('click',function(e){
        if (e.metaKey) {
-      is_market_clicked = true;
-  toggle.value = ka_limitVal;
+        is_market_clicked = false;
+        toggle.value = ka_limitVal;
+        // toggle.value = ka_limitVal;
+            form.querySelector('.price input').value = parseFloat(ltp)+1;
+            form.querySelector('.trigger input').value = parseFloat(ltp)+1;
+            form.querySelector('.price input').change();
+            form.querySelector('.trigger input').change();
      }else{
       is_market_clicked = false;
       toggle.value = '';
@@ -67,8 +83,13 @@ setInterval(()=>{
 
    if(document.querySelector('input[value="SL-M"]').addEventListener('click',function(e){
         if (e.metaKey) {
-      is_market_clicked = true;
-  toggle.value = ka_limitVal;
+          
+      is_market_clicked = false;
+      toggle.value = ka_limitVal;
+  // toggle.value = ka_limitVal;
+      // let price = form.querySelector('.price input').value = parseFloat(ltp)+1;
+      form.querySelector('.trigger input').value = parseFloat(ltp)+2;
+      form.querySelector('.trigger input').change();
      }else{
       is_market_clicked = false;
       toggle.value = '';
@@ -85,7 +106,6 @@ setInterval(()=>{
     document.querySelector('.order-type .su-radio-wrap:nth-child(2) input').click();
   }
     
-    let ltp = Math.round(form.querySelector('.last-price').innerText.replace(/[₹,]/,''));
     let new_ltp = ltp;
     
     if(submit_value.innerText =='Buy'){
@@ -97,8 +117,10 @@ setInterval(()=>{
     }
     if(isNaN(new_ltp)==false){
       new_ltp = Math.round(new_ltp);
-    let price = form.querySelector('.price input').value = new_ltp;
-    let trigger = form.querySelector('.trigger input').value = new_ltp;
+      if(is_market_clicked==true){
+    form.querySelector('.price input').value = new_ltp;
+    form.querySelector('.trigger input').value = new_ltp;
+  }
   }
   }
   
