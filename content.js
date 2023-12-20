@@ -58,11 +58,11 @@ setInterval(()=>{
  
 
   if (e.metaKey) {
-    is_market_clicked = false;
-    toggle.value = '';
-   }else{
     is_market_clicked = true;
 toggle.value = ka_limitVal;
+   }else{
+    is_market_clicked = false;
+    toggle.value = '';
    }
     }));
 
